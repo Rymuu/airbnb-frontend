@@ -1,0 +1,66 @@
+.wrapper {
+    width: 300px;
+
+    .thumbnail__wrapper {
+        background: lightgray;
+        height: 300px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        position: relative;
+        overflow: hidden;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .btn__whishlist {
+            position: absolute;
+            right: 10px;
+            top: 20px;
+            background: none;
+            border: none;
+
+            img {
+                width: 25px;
+            }
+
+            img:hover {
+                fill: "red";
+                cursor: pointer;
+            }
+        }
+    }
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        .metadata {
+            width: 70%;
+
+            b {
+                font-weight: 600;
+            }
+
+            p {
+                font-size: 14px;
+                margin-bottom: 10px;
+                font-weight: 300;
+            }
+        }
+
+        .rate {
+            width: 25%;
+            text-align: right;
+
+            span {
+                font-size: 14px;
+            }
+
+            img {
+                width: 12px;
+            }
+        }
+    }
+}

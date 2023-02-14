@@ -1,0 +1,22 @@
+@import '../../styles/helpers/variables';
+.btn {
+    border-radius: 5px;
+    font-size: 17px;
+    display: inline-block;
+    transition: 0.3s all;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 8px;
+    &__primary {
+        background: $mainColor;
+        color: white;
+        border: 1px solid $mainColor;
+        &:hover {
+            background: white;
+            color: black;
+            border: 1px solid black;
+        }
+    }
+}
