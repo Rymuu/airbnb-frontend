@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import Logo from "../../../public/logo.png";
 import AccountIcon from "../../../public/icons/account-icon.svg";
+import MenuIcon from "../../../public/icons/menu-icon.svg";
 import WorldIcon from "../../../public/icons/world-icon.svg";
 import NavBar from "../NavBar/index.js";
 import { useRouter } from "next/router";
@@ -49,13 +50,17 @@ const Index = () => {
               Mettre mon logement sur Airbnb
             </Link>
           </li>
-          <li className={styles.nav__item}>
-            <Link href="/profil">
-              Profil
-            </Link>
+
+          <li className={styles.nav__item} style={{ height: 20 + "px" }}>
+            <img src={WorldIcon.src} alt="langue" height={20} />
           </li>
-          <li className={styles.nav__item}>
-            <img src={WorldIcon.src} alt="favoris" height={20} />
+          <li className={styles.nav__item__account}>
+            <img src={MenuIcon.src} alt="menu" height={17} />
+            <img src={AccountIcon.src} alt="profil" height={35} style={{ paddingLeft: 8 }} />
+            <ul>
+              <li><Link href="/register">Inscription</Link></li>
+              <li><Link href="/login">Connexion</Link></li>
+            </ul>
           </li>
         </ul>
       </div>

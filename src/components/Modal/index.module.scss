@@ -1,4 +1,5 @@
 .wrapper {
+    
     .overlay {
         position: fixed;
         left: 0%;
@@ -8,7 +9,9 @@
         background-color: #000000a3;
         z-index: 99999;
     }
+
     .content {
+        height: 80%;
         position: fixed;
         left: 50%;
         top: 50%;
@@ -18,26 +21,31 @@
         z-index: 999999;
         transform: translate(-50%, -50%);
         border-radius: 5px;
+
         .header {
             border-bottom: 1px solid lightgray;
             padding: 20px 10px;
+
             h2 {
-                font-size: 20px;
+                font-size: 17px;
                 font-weight: 600;
+                text-align: center;
             }
+
             button {
                 position: absolute;
-                right: 2%;
+                left: 3%;
                 top: 4%;
                 border-radius: 50px;
-                background-color: black;
-                color: white;
+                background-color: white;
+                color: rgb(0, 0, 0);
                 font-size: 12px;
                 font-weight: 600;
                 cursor: pointer;
                 width: 25px;
                 height: 25px;
                 border: none;
+
                 span {
                     position: absolute;
                     left: 50%;
@@ -46,8 +54,23 @@
                 }
             }
         }
+
         .inner {
             padding: 10px;
+            overflow-y: scroll;
+            height: inherit;
+
+            h2 {
+                font-size: 20px;
+                font-weight: 500;
+                padding-bottom: 15px;
+            }
+
+            h3 {
+                font-size: 15px;
+                color: grey;
+                padding-bottom: 15px;
+            }
         }
     }
 }
