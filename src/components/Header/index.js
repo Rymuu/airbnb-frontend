@@ -12,9 +12,14 @@ import { useRouter } from "next/router";
 
 const Index = () => {
 
+  const [openDropdown, setOpenDropdown] = useState(false);
   const router = useRouter();
   const { wishlist } = useContext(WishlistContext);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleOpen = () => {
+    setOpenDropdown(!openDropdown);
+  };
 
   const handleInput = (e) => {
     setSearchQuery(e.target.value);
@@ -55,12 +60,18 @@ const Index = () => {
             <img src={WorldIcon.src} alt="langue" height={20} />
           </li>
           <li className={styles.nav__item__account}>
-            <img src={MenuIcon.src} alt="menu" height={17} />
-            <img src={AccountIcon.src} alt="profil" height={35} style={{ paddingLeft: 8 }} />
-            <ul>
-              <li><Link href="/register">Inscription</Link></li>
-              <li><Link href="/login">Connexion</Link></li>
-            </ul>
+            <div className={styles.dropdown} onClick={handleOpen}>
+              <img src={MenuIcon.src} alt="menu" height={20} />
+              <img src={AccountIcon.src} alt="langue" height={35} style={{ paddingLeft: 10 + "px" }} />
+            </div>
+            {openDropdown ? (
+              <div className={styles.dropdown__content}>
+                <ul>
+                  <li><Link href="/register">Inscription</Link></li>
+                  <li><Link href="/login">Connexion</Link></li>
+                </ul>
+              </div>
+            ) : null}
           </li>
         </ul>
       </div>

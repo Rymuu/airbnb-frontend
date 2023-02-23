@@ -17,7 +17,7 @@ export default function Home() {
     placeService.filterPlaces(queryString)
       .then((places) => {
         setPlacesArray(places);
-        console.log("c'est l'erreur",places);
+        console.log(places);
       })
       .catch(err => console.log(err));
   }, []);

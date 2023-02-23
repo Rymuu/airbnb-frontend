@@ -1,6 +1,6 @@
 .wrapper {
     width: 310px;
-
+    cursor: pointer;
     .thumbnail__wrapper {
         background: lightgray;
         height: 300px;
@@ -8,6 +8,7 @@
         margin-bottom: 15px;
         position: relative;
         overflow: hidden;
+        
 
         img {
             height: 100%;
@@ -21,14 +22,10 @@
             top: 20px;
             background: none;
             border: none;
-
+            cursor: pointer;
+            
             img {
                 width: 25px;
-            }
-
-            img:hover {
-                fill: "red";
-                cursor: pointer;
             }
         }
     }

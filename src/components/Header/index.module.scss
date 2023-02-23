@@ -15,7 +15,7 @@
 
     &__logo {
 
-        flex: 0 1 26%;
+        flex: 0 1 28%;
 
         img {
             height: 2rem;
@@ -44,8 +44,20 @@
                     background-color: rgb(239, 239, 239);
                     border-radius: 20px;
                 }
+            }
 
-                &__account {
+            .nav__item__account {
+
+                margin: 0px 10px;
+
+                a {
+                    color: black;
+                    text-decoration: none;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+
+                .dropdown {
                     display: flex;
                     align-items: center;
                     border: 1px solid #dddddd;
@@ -53,14 +65,46 @@
                     padding: 3px;
                     padding-left: 10px;
                     transition: box-shadow 0.2s ease;
-                    margin: 0px 10px;
+
 
                     &:hover {
+                        background-color: white;
                         box-shadow: 0 2px 2px rgb(0 0 0 / 15%), 0 4px 12px rgb(0 0 0 / 10%);
                         transition: box-shadow 0.2s ease;
                     }
+
+                }
+
+                .dropdown__content {
+                    position: absolute;
+                    z-index: 999;
+                    top: 100%;
+                    right: 0;
+                    width: 150px;
+                    margin-right: 100px;
+                    border: 1px solid rgba(0, 0, 0, 0.04);
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.063), 0 4px 12px rgb(0 0 0 / 10%);
+                    background-color: white;
+                    border-radius: 20px;
+                    padding: 10px 0px;
+
+                    ul {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+
+                        li {
+                            padding: 15px 15px;
+                        }
+
+                        li:hover {
+                            background-color: rgba(0, 0, 0, 0.05);
+                            cursor: pointer;
+                        }
+                    }
                 }
             }
+
         }
     }
 }

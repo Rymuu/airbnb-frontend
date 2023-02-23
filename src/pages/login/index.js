@@ -66,12 +66,12 @@ const Index = () => {
           }}
         />
         <Button
-          title="submit"
+          title="Login"
           handleClick={(e) => {
             submitForm(e);
           }}
           type="submit"
-          btnClass="btn__primary"
+          btnClass="btn__full__primary"
         />
         {/* {
           message ? (
