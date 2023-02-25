@@ -1,0 +1,114 @@
+.filter__div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: sticky;
+  top: 80px;
+  background-color: white;
+  z-index: 99;
+
+  &__icons {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 10px;
+
+  }
+
+  &__button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 48px;
+    width: 110px;
+    border: 1px solid #dddddd;
+    border-radius: 15px;
+    padding: 0px 10px;
+    transition: box-shadow 0.2s ease;
+    cursor: pointer;
+
+    a {
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+}
+
+.links {
+  &__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+    border-bottom: 3px solid transparent;
+    margin-right: 40px;
+
+    &:hover {
+      opacity: 1;
+      border-bottom: 3px solid rgb(226, 226, 226);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+  }
+
+  &__img {
+    width: 30px;
+    height: 1.5rem;
+    object-fit: contain;
+    color: #000000
+  }
+
+  &__label {
+    padding-top: 10px;
+    padding-bottom: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+}
+
+@media only screen and (max-width: 800px) {
+  .filter__div {
+    padding: 0.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  outline: #000000;
+}
+
+.input__wrapper {
+  width: 40%;
+  border: 1.5px solid #999999;
+  border-radius: 7px;
+  padding: 5px;
+  margin: 0px 20px;
+
+  label {
+    font-size: 12px;
+    color: #696969;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input {
+    outline: none;
+    border: none;
+  }
+}
+
+.select__multiple {
+  width: 40%;
+  margin: 0px 30%;
+}

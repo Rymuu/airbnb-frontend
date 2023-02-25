@@ -1,0 +1,54 @@
+.item1 {
+    grid-area: main;
+    img {
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 15px 0px 0px 15px;
+    }
+}
+
+.item2 {
+    grid-area: second;
+
+    img {
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 0px 15px 0px 0px;
+    }
+}
+
+.item3 {
+    grid-area: third;
+    img {
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 0px 0px 15px 0px;
+    }
+}
+
+.grid__container {
+    height: 450px;
+    display: grid;
+    grid-template-areas:
+        'main main main main second second'
+        'main main main main third third';
+    overflow: hidden;
+    border-radius: 1.5rem;
+    gap: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    
+    div {
+        text-align: center;
+        font-size: 30px;
+        object-fit: cover; 
+cursor: pointer; 
+
+
+
+    }
+}
