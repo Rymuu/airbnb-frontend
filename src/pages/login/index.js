@@ -11,7 +11,6 @@ const Index = () => {
   const router = useRouter();
   const [message, setMessage] = useState(null);
   const [type, setType] = useState(null);
-  console.log(router);
   const [userForm, setUserForm] = useState({
     email: "",
     password: ""
