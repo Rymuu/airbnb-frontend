@@ -5,6 +5,8 @@ const Index = ({ searchResults }) => {
 
     return (
         <main>
+            <p className="text-sm font-semibold">{searchResults.length} {searchResults.length>1?("logements"):("logement")}</p>
+            <p className="text-xs text-gray-500">Classement des résultats ⓘ</p>
             <PlaceGrid places={searchResults} />
         </main>
     )

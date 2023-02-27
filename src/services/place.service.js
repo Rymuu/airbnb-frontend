@@ -9,6 +9,24 @@ export default {
             method: "GET"
         }).then(res => res.json())
     },
+    getMyPlaces(token) {
+        return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/place/myPlaces/`, {
+            method: "GET",
+            headers: {
+                'Authorization': `${token}`
+            },
+        }).then(res => res.json())
+    },
+    createPlace(token, body) {
+        return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/place/`, {
+            method: "POST",
+            headers: {
+                'Content-type': "application/json",
+                'Authorization': `${token}`
+            },
+            body: JSON.stringify(body)
+        }).then(res => res.json())
+    },
     searchPlaces(searchQuery) {
         return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/place/search/${searchQuery}`, {
             method: "GET",

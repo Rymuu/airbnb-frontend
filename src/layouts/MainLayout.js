@@ -8,7 +8,7 @@ const MainLayout = ({ children }) => {
     <>
       <Header />
       <main>
-        <div className={styles.container}>
+        <div className="flex flex-col min-h-screen">
           {children}
         </div>
       </main>

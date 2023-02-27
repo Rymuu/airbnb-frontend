@@ -3,7 +3,7 @@ import styles from "./index.module.scss";
 
 const Index = (props) => {
   return (
-    <div className={styles.title__page}>
+    <div className="text-4xl text-center mb-4">
       <h1>{props.title}</h1>
     </div>
   );

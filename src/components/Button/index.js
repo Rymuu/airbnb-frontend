@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from "./index.module.scss";
-const Index = ({ title, handleClick, type, btnClass }) => {
+const Index = ({ title, handleClick, type, btnClass, icon }) => {
   return (
     <button
       onClick={handleClick}
       type={type}
-      className={`${styles.btn} ${styles[btnClass]}`}
+      className={btnClass}
     >
+      {icon}
       {title}
     </button>
   );

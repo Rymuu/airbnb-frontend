@@ -1,28 +1,29 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState, useContext } from 'react';
 import TitlePage from "../../components/TitlePage";
+import AccountNav from "../../components/AccountNav";
 import userService from '../../services/user.service';
-import styles from "./index.module.scss";
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import Input from "../../components/Input";
 import WithAuth from '../../HOC/withAuth';
+import UserContext from '../../context/UserContext';
+import { useRouter } from 'next/router';
 
 const Index = () => {
+  const { pathname } = useRouter();
+  const router = useRouter();
+  let subpage = pathname.split('/')?.[2];
+  console.log(subpage);
 
-  const [user, setUser] = useState();
+  const { user, setUser, logOut } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);
   const [userForm, setUserForm] = useState();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    userService.getMe(token)
-      .then((user) => {
-        console.log(user);
-        setUserForm(user);
-        setUser(user);
-      })
-      .catch(err => console.log(err))
-  }, []);
+  const logOutButton = () => {
+    logOut();
+    localStorage.removeItem('token');
+    router.push('/');
+  };
 
   useEffect(() => {
     console.log(openModal);
@@ -46,7 +47,7 @@ const Index = () => {
   }
 
   return (
-    <>
+    <div>
       {
         openModal && (
           <Modal title="Modifier mon profil" closeModal={() => setOpenModal(false)}>
@@ -81,39 +82,55 @@ const Index = () => {
                   handleInput(e);
                 }}
               />
-              <Button 
-                title="modifier" 
+              <Button
+                title="Modifier"
                 type="submit"
                 handleClick={() => {
                   console.log("test")
                 }}
-                btnClass="btn__primary"
+                btnClass="primary"
               />
             </form>
           </Modal>
         )
       }
-      <TitlePage title="Mon profil" />
-      <div className={styles.wrapper}>
-        {
-          user ? (
-            <>
-              <p>FirstName : {user.firstName}</p>
-              <p>lastName : {user.lastName}</p>
-              <p>Email : {user.email}</p>
-            </>
-          ) : <p>...loading</p>
-        }
-        <Button
-          title="Modifier"
-          handleClick={() => {
-            setOpenModal(true);
-          }}
-          type="button"
-          btnClass="btn__primary"
-        />
+      <AccountNav />
+
+      <div className='text-center max-x-lg mx-auto'>
+        <div className='flex items-center justify-center'>
+          <p>Bonjour <span className='text-primary font-semibold capitalize'>{user && user.firstName}</span> !</p>
+          <Button
+            title="Déconnexion"
+            handleClick={logOutButton}
+            type="button"
+            btnClass="primary max-w-fit ml-2"
+          />
+        </div>
+        <div className='py-2'>
+          <img className='mx-auto rounded-2xl w-72' src={"https://pbs.twimg.com/profile_images/1481028496960884737/0TV2hqEf_400x400.jpg"} />
+        </div>
+        <div className='mx-auto w-72 text-left'>
+          {
+            user ? (
+              <>
+                <p><span className='underline'>Prénom</span> : <span className='capitalize'>{user.firstName}</span></p>
+                <p><span className='underline'>Nom</span> : <span className='capitalize'>{user.lastName}</span></p>
+                <p><span className='underline'>Email</span> : <span>{user.email}</span></p>
+              </>
+            ) : <p>...loading</p>
+          }
+          <Button
+            title="Modifier mes informations"
+            handleClick={() => {
+              setUserForm(user);
+              setOpenModal(true);
+            }}
+            type="button"
+            btnClass="primary max-w-sm mt-2"
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

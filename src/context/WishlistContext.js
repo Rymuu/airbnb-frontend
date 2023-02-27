@@ -1,38 +1,56 @@
 import { createContext, useState, useEffect } from 'react';
 
-const WishlistContext = createContext();
+const WishlistContext = createContext({
+    wishlistData: [],
+    addToWishlist: () => { },
+    removeFromWishlist: () => { },
+    clearWishlist: () => { },
+});
+
 
 export default WishlistContext;
 
 export const WishlistContextProvider = ({ children }) => {
 
+    const [wishlistData, setWishlistData] = useState([]);
 
 
-
-    const [wishlist, setWishlist] = useState([]);
-
-    const removePlaceWishlist = (place) => {
-        if (wishlist.indexOf(place) != -1) {
-            wishlist.splice(wishlist.indexOf(place), 1)
-            setWishlist([...wishlist])
+    useEffect(() => {
+        const wishlistDataString = localStorage.getItem('wishlist');
+        if (wishlistDataString) {
+            setWishlistData(JSON.parse(wishlistDataString));
         }
-        // ....
+    }, []);
+
+    useEffect(() => {
+        if (wishlistData.length > 0) {
+          try {
+            localStorage.setItem('wishlist', JSON.stringify(wishlistData));
+          } catch (e) {
+            console.error('Error writing to local storage:', e);
+          }
+        }
+      }, [wishlistData]);
+
+    function addToWishlist(item) {
+        setWishlistData([...wishlistData, item]);
     }
-    const addPlaceWishlist = (place) => {
-        if (wishlist.indexOf(place) == -1)
-            setWishlist([...wishlist, place])
-        // ...
+
+    function removeFromWishlist(item) {
+        const newWishlistData = wishlistData.filter(wishlistItem => wishlistItem._id !== item._id);
+        setWishlistData(newWishlistData);
     }
 
     const deleteWishlist = () => {
-        setWishlist([])
+        localStorage.removeItem('wishlist');
+        setWishlistData([]);
     }
 
     const context = {
-        removePlaceWishlist,
-        addPlaceWishlist,
+        addToWishlist,
+        removeFromWishlist,
         deleteWishlist,
-        wishlist
+        wishlistData
     }
 
     return (

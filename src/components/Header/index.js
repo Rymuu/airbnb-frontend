@@ -17,13 +17,14 @@ const Index = () => {
   const router = useRouter();
   const { wishlist } = useContext(WishlistContext);
   const { user } = useContext(UserContext);
+  const { logOut } = useContext(UserContext);
   const [searchQuery, setSearchQuery] = useState("");
-
   const dropdownStatus = () => {
     setOpenDropdown(!openDropdown);
   };
 
-  const logOut = () => {
+  const logOutButton = () => {
+    logOut();
     setOpenDropdown(!openDropdown);
     localStorage.removeItem('token');
     router.push('/');
@@ -63,10 +64,10 @@ const Index = () => {
       {/* Right */}
       <div className='flex items-center justify-end cursor-pointer'>
         <div className='hover:bg-gray-100 rounded-full'>
-          <p className='font-medium text-sm mx-3 my-3'>Mettre mon logement sur Airbnb</p>
+          <p className='hidden lg:inline-flex font-medium text-sm mx-3 my-3'>Mettre mon logement sur Airbnb</p>
         </div>
         <div className='hover:bg-gray-100 rounded-full'>
-          <GrLanguage className='h-6 cursor-pointer mx-4 my-3' />
+          <GrLanguage className='hidden md:inline-flex h-6 cursor-pointer mx-4 my-3' />
         </div>
         <div className='flex items-center space-x-2 border border-solid
         border-gray-300 p-1 pl-2 rounded-full transition  
@@ -74,20 +75,20 @@ const Index = () => {
           onClick={dropdownStatus}>
           <BiMenu className='h-5 w-5' />
           <MdAccountCircle className='h-8 w-8 text-gray-500' />
-          {user ? (
-            <p>{user.firstName}</p>
-          ) : null}
+          {!!user && (
+            <p className='capitalize pr-2'>{user && user.firstName} {user && user.lastName}</p>
+          )}
 
         </div>
         {openDropdown ? (
           <div className='absolute z-50 right-0 mr-[80px] top-[90%] bg-white w-[150px] 
           border border-solid border-gray-200 shadow-lg rounded-lg py-[10px]'>
             <ul>
-              {user._id ? (
+              {!!user ? (
                 <>
                   <Link href="/profil"><li className='hover:bg-gray-100 text-sm text-gray-800 pl-[20px] py-[10px] mb-[10px]' onClick={dropdownStatus}>Mon Profil</li></Link>
                   <Separator />
-                  <li className='hover:bg-gray-100 text-sm text-gray-800 pl-[20px] py-[10px]' onClick={logOut}>Deconnexion</li>
+                  <li className='hover:bg-gray-100 text-sm text-gray-800 pl-[20px] py-[10px]' onClick={logOutButton}>Deconnexion</li>
                 </>
               ) :
                 (
