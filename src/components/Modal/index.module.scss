@@ -11,17 +11,20 @@
     }
 
     .content {
-        height: auto;
+        max-height: 70%;
+        height: fit-content;
+        max-width: 70%;
+        width: fit-content;
         position: fixed;
         left: 50%;
         top: 50%;
-        width: 500px;
         background: white;
         padding: 20px;
         z-index: 999999;
         transform: translate(-50%, -50%);
         border-radius: 5px;
-
+        overflow-y: scroll;
+        
         .header {
             border-bottom: 1px solid lightgray;
             padding: 20px 10px;
@@ -57,7 +60,6 @@
 
         .inner {
             padding: 10px;
-            overflow-y: scroll;
             height: inherit;
 
             h2 {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
-const Index = ({images}) => {
+const Index = ({ images, handleClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToSlide = (index) => {
@@ -21,35 +21,39 @@ const Index = ({images}) => {
   return (
     <>
       {images.map((image, index) => (
-        <img
-          key={index}
-          className={`absolute w-full h-full object-cover transition-opacity duration-500 ${index === currentIndex ? "opacity-100" : "opacity-0"
-            }`}
-          src={image}
-          alt="carousel slide"
-        />
+        <div className="hover:bg-gray-500 rounded-2xl flex">
+          <img
+            key={index}
+            className={`absolute rounded-2xl object-cover aspect-square w-full h-full 
+            transition-opacity duration-500 ${index === currentIndex ? "opacity-100" : "opacity-0"
+              }`}
+            src={image}
+            alt="carousel slide"
+            onClick={handleClick}
+          />
+        </div>
       ))}
       <div className="absolute bottom-0 w-full flex justify-center space-x-2 mb-4">
         {images.map((_, index) => (
           <button
             key={index}
-            className={`w-4 h-4 rounded-full bg-gray-400 hover:bg-gray-900 focus:outline-none focus:bg-gray-900 transition-colors duration-300 ${index === currentIndex ? "bg-gray-900" : ""
+            className={`w-2 h-2 rounded-full bg-gray-400 hover:bg-white focus:outline-none focus:bg-white transition-colors duration-300 ${index === currentIndex ? "bg-white" : ""
               }`}
             onClick={() => goToSlide(index)}
           />
         ))}
       </div>
       <button
-        className="absolute top-1/2 left-0 w-12 h-12 transform -translate-y-1/2 text-3xl text-gray-900 hover:text-gray-700 focus:outline-none rounded-full"
+        className="absolute bg-white top-1/2 left-0 w-8 h-8 transform -translate-y-1/2 text-3xl text-gray-900 hover:text-gray-700 focus:outline-none rounded-full"
         onClick={goToPreviousSlide}
       >
-        <BsChevronLeft />
+        <BsChevronLeft className="w-6 h-6"/>
       </button>
       <button
-        className="absolute top-1/2 right-0 w-12 h-12 transform -translate-y-1/2 text-3xl text-gray-900 hover:text-gray-700 focus:outline-none rounded-full"
+        className="absolute bg-white top-1/2 right-0 w-8 h-8 transform -translate-y-1/2 text-3xl hover:text-gray-900 text-gray-700 focus:outline-none rounded-full text-right"
         onClick={goToNextSlide}
       >
-        <BsChevronRight />
+        <BsChevronRight className="w-6 h-6"/>
       </button>
     </>
   );

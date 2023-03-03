@@ -17,7 +17,6 @@ export default function Home() {
     placeService.filterPlaces(queryString)
       .then((places) => {
         setPlacesArray(places);
-        console.log(places);
       })
       .catch(err => console.log(err));
   }, []);
@@ -28,7 +27,7 @@ export default function Home() {
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
       />
-      {selectedFilter == 0 ? <PlaceGrid places={placesArray} /> : <PlaceGrid places={placesArray} />}
+      {selectedFilter == 0 ? <PlaceGrid places={placesArray}/> : <PlaceGrid places={placesArray} />}
 
     </main>
   )

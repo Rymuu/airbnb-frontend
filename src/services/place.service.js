@@ -27,6 +27,24 @@ export default {
             body: JSON.stringify(body)
         }).then(res => res.json())
     },
+    updatePlace(token, body, id) {
+        return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/place/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-type': "application/json",
+                'Authorization': `${token}`
+            },
+            body: JSON.stringify(body)
+        }).then(res => res.json())
+    },
+    deletePlace(token, id) {
+        return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/place/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `${token}`
+            },
+        }).then(res => res.json())
+    },
     searchPlaces(searchQuery) {
         return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/place/search/${searchQuery}`, {
             method: "GET",

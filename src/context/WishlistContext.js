@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const WishlistContext = createContext({
     wishlistData: [],
@@ -7,50 +7,48 @@ const WishlistContext = createContext({
     clearWishlist: () => { },
 });
 
-
 export default WishlistContext;
 
 export const WishlistContextProvider = ({ children }) => {
 
-    const [wishlistData, setWishlistData] = useState([]);
-
+    const [wishlistDataState, setWishlistDataState] = useState([]);
 
     useEffect(() => {
         const wishlistDataString = localStorage.getItem('wishlist');
         if (wishlistDataString) {
-            setWishlistData(JSON.parse(wishlistDataString));
+            setWishlistDataState(JSON.parse(wishlistDataString));
         }
     }, []);
 
     useEffect(() => {
-        if (wishlistData.length > 0) {
-          try {
-            localStorage.setItem('wishlist', JSON.stringify(wishlistData));
-          } catch (e) {
-            console.error('Error writing to local storage:', e);
-          }
+        if (wishlistDataState.length > 0) {
+            try {
+                localStorage.setItem('wishlist', JSON.stringify(wishlistDataState));
+            } catch (e) {
+                console.error('Error writing to local storage:', e);
+            }
         }
-      }, [wishlistData]);
+    }, [wishlistDataState]);
 
     function addToWishlist(item) {
-        setWishlistData([...wishlistData, item]);
+        setWishlistDataState([...wishlistDataState, item]);
     }
 
     function removeFromWishlist(item) {
-        const newWishlistData = wishlistData.filter(wishlistItem => wishlistItem._id !== item._id);
-        setWishlistData(newWishlistData);
+        const newWishlistData = wishlistDataState.filter(wishlistItem => wishlistItem._id !== item._id);
+        setWishlistDataState(newWishlistData);
     }
 
     const deleteWishlist = () => {
         localStorage.removeItem('wishlist');
-        setWishlistData([]);
+        setWishlistDataState([]);
     }
 
     const context = {
         addToWishlist,
         removeFromWishlist,
         deleteWishlist,
-        wishlistData
+        wishlistData: wishlistDataState
     }
 
     return (

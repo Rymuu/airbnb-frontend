@@ -1,10 +1,14 @@
 import React from 'react';
+import AdminHeader from "../components/AdminHeader";
 
 const Index = ({ children }) => {
   return (
-    <div>
-      {children}
-    </div>
+    <>
+      <AdminHeader />
+      <div>
+        {children}
+      </div>
+    </>
   );
 }
 

@@ -1,11 +1,13 @@
-import Input from "../../../components/Input";
 import { useState, useEffect } from "react";
+import WithAuth from "../../../HOC/withAuth";
+import IsOwner from "../../../HOC/IsOwner";
+import Input from "../../../components/Input";
 import TitlePage from "../../../components/TitlePage";
 import typePlaceService from "../../../services/typePlace.service";
-import placeService from "../../../services/place.service";
-import Button from "../../../components/Button";
-import { useRouter } from "next/router";
 import Notification from "../../../components/Notification";
+import Button from "../../../components/Button";
+import placeService from "../../../services/place.service";
+import { useRouter } from "next/router";
 
 const Index = () => {
 
@@ -26,7 +28,7 @@ const Index = () => {
         address: {
             city: "",
             street: "",
-            country:"",
+            country: "",
             zipCode: "",
             gps: {
                 lat: "",
@@ -41,7 +43,6 @@ const Index = () => {
 
         placeService.createPlace(token, placeForm)
             .then((data) => {
-                console.log("c'est la place", placeForm)
                 if (data.errors) {
                     setMessage(data.message);
                     setType("error");
@@ -174,15 +175,15 @@ const Index = () => {
                     />
                 </div>
                 <Input
-                        titleLabel="Pays"
-                        divClass="py-2"
-                        inputClass="shadow-[0_0px_1px_1px_rgba(0,0,0,0.3)] w-[600px]"
-                        inputType="text"
-                        inputPlaceholder="France"
-                        inputName="country"
-                        inputRequired="required"
-                        inputOnChange={(e) => setPlaceForm({ ...placeForm, address: { ...placeForm.address, country: e.target.value } })}
-                    />
+                    titleLabel="Pays"
+                    divClass="py-2"
+                    inputClass="shadow-[0_0px_1px_1px_rgba(0,0,0,0.3)] w-[600px]"
+                    inputType="text"
+                    inputPlaceholder="France"
+                    inputName="country"
+                    inputRequired="required"
+                    inputOnChange={(e) => setPlaceForm({ ...placeForm, address: { ...placeForm.address, country: e.target.value } })}
+                />
                 <div className="flex justify-around">
                     <Input
                         titleLabel="Latitude"
@@ -221,4 +222,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default WithAuth(IsOwner(Index));

@@ -1,23 +1,28 @@
 import { useContext, useState } from 'react';
+import { useRouter } from "next/router";
 import { GrLanguage } from "react-icons/gr";
 import { MdAccountCircle } from "react-icons/md";
 import { BiMenu } from "react-icons/bi";
+import { FcCheckmark } from "react-icons/fc";
+import { RxCross1 } from 'react-icons/rx';
 import WishlistContext from '../../context/WishlistContext';
 import UserContext from '../../context/UserContext';
 import Link from "next/link";
 import Airbnb from "../../../public/icons/airbnb.svg";
 import NavBar from "../NavBar/index.js";
+import Button from "../Button";
+import Modal from "../Modal";
 import Separator from "../Separator";
-import { useRouter } from "next/router";
+import userService from '../../services/user.service';
 
 
 const Index = () => {
 
   const [openDropdown, setOpenDropdown] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const { wishlist } = useContext(WishlistContext);
-  const { user } = useContext(UserContext);
-  const { logOut } = useContext(UserContext);
+  const { user, logOut, updateUserType } = useContext(UserContext);
   const [searchQuery, setSearchQuery] = useState("");
   const dropdownStatus = () => {
     setOpenDropdown(!openDropdown);
@@ -30,8 +35,35 @@ const Index = () => {
     router.push('/');
   };
 
+  const becomeOwner = (e) => {
+    const token = localStorage.getItem('token');
+    userService.becomeOwner(token)
+      .then((data) => {
+        if (data.errors) {
+          setMessage(data.message);
+          setType("error");
+          return false;
+        }
+        updateUserType(data);
+        setOpenModal(false);
+      })
+      .catch(err => console.log(err))
+  }
+  
   const handleInput = (e) => {
     setSearchQuery(e.target.value);
+  }
+
+  const handleClick = (e) => {
+    if (!!user && user.type === "OWNER") {
+      router.push("places/new");
+    }
+    if (!!user && user.type === "CUSTOMER") {
+      setOpenModal(true);
+    }
+    else {
+      router.push("/login");
+    }
   }
 
   const submitSearch = (e) => {
@@ -44,6 +76,28 @@ const Index = () => {
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white border border-solid
     border-gray-200 py-[15.5px]
     md:px-[80px]">
+      {
+        openModal && (
+          <Modal
+            className="overflow-hidden" title={`Veux-tu devenir loueur et publier des logements ?`}
+            closeModal={() => setOpenModal(false)}>
+            <div className='flex justify-around items-center'>
+              <Button
+                icon={<RxCross1 className='h-8 w-8 text-primary' />}
+                handleClick={() => setOpenModal(false)}
+                type="button"
+                btnClass="h-5 w-5"
+              />
+              <Button
+                icon={<FcCheckmark className='h-10 w-10' />}
+                handleClick={() => becomeOwner()}
+                type="button"
+                btnClass=""
+              />
+            </div>
+          </Modal>
+        )
+      }
       {/* Left */}
       <div className='relative flex items-center h-1 cursor-pointer my-auto'>
         <Link href="/">
@@ -64,7 +118,7 @@ const Index = () => {
       {/* Right */}
       <div className='flex items-center justify-end cursor-pointer'>
         <div className='hover:bg-gray-100 rounded-full'>
-          <p className='hidden lg:inline-flex font-medium text-sm mx-3 my-3'>Mettre mon logement sur Airbnb</p>
+          <p className='hidden lg:inline-flex font-medium text-sm mx-3 my-3' onClick={handleClick}>Mettre mon logement sur Airbnb</p>
         </div>
         <div className='hover:bg-gray-100 rounded-full'>
           <GrLanguage className='hidden md:inline-flex h-6 cursor-pointer mx-4 my-3' />

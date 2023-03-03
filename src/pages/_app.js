@@ -12,9 +12,11 @@ function MyApp({ Component, pageProps }) {
     <>
       {
         router && router.asPath.startsWith('/admin') ? (
-          <AdminLayout>
-            <Component {...pageProps} />
-          </AdminLayout>
+          <UserContextProvider>
+            <AdminLayout>
+              <Component {...pageProps} />
+            </AdminLayout>
+          </UserContextProvider>
         ) : (
           <UserContextProvider>
             <WishlistContextProvider>

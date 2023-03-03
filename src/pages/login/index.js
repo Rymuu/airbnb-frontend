@@ -22,7 +22,7 @@ const Index = () => {
   }
 
   const submitForm = (e) => {
-    
+
     e.preventDefault();
     AuthService.login(userForm)
       .then((data) => {
@@ -33,7 +33,10 @@ const Index = () => {
         }
         localStorage.setItem('token', data.token);
         findUser();
-        router.push("/profil");
+        if (data.isAdmin) {
+          router.push("/admin");
+        }
+        else { router.push("/profil"); }
       })
       .catch(
         (err) => {

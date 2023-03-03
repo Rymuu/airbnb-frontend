@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
-import { FaLessThanEqual } from 'react-icons/fa';
 import userService from '../services/user.service';
+
 const UserContext = createContext();
 
 export default UserContext;
@@ -13,7 +13,7 @@ export const UserContextProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-       userService.getMe(token)
+        userService.getMe(token)
             .then((data) => {
                 if ((data._id)) {
                     setUser(data);
@@ -39,14 +39,19 @@ export const UserContextProvider = ({ children }) => {
 
     }
 
+    const updateUserType = (newUser) => {
+        setUser(newUser);
+    }
     const logOut = () => {
         setUser();
+        localStorage.removeItem('wishlist')
     }
 
     const context = {
         logOut,
         findUser,
         setUser,
+        updateUserType,
         ready,
         user
     }
@@ -60,5 +65,4 @@ export const UserContextProvider = ({ children }) => {
 }
 
 
-  
-  
+

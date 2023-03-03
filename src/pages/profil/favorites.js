@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import WithAuth from '../../HOC/withAuth';
 import AccountNav from "../../components/AccountNav";
 import LongCard from "../../components/LongCard";
 import Button from "../../components/Button";
@@ -58,6 +59,8 @@ const FavoritesPage = () => {
                 key={item._id}
                 place={item}
                 cardOnClick={() => deleteItemFromWishlist(item)}
+                useModal={false}
+                modifyButton={false}
               />
             ))}
           </div>
@@ -71,4 +74,4 @@ const FavoritesPage = () => {
   );
 };
 
-export default FavoritesPage;
+export default WithAuth(FavoritesPage);

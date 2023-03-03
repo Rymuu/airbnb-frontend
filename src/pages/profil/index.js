@@ -1,11 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
-import TitlePage from "../../components/TitlePage";
+import WithAuth from '../../HOC/withAuth';
 import AccountNav from "../../components/AccountNav";
 import userService from '../../services/user.service';
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import Input from "../../components/Input";
-import WithAuth from '../../HOC/withAuth';
 import UserContext from '../../context/UserContext';
 import { useRouter } from 'next/router';
 
@@ -13,7 +12,6 @@ const Index = () => {
   const { pathname } = useRouter();
   const router = useRouter();
   let subpage = pathname.split('/')?.[2];
-  console.log(subpage);
 
   const { user, setUser, logOut } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);
@@ -26,7 +24,7 @@ const Index = () => {
   };
 
   useEffect(() => {
-    console.log(openModal);
+
   }, [openModal]);
 
   const handleInput = (e) => {
@@ -38,7 +36,6 @@ const Index = () => {
     const token = localStorage.getItem('token');
     userService.updateUser(token, userForm)
       .then((user) => {
-        console.log(user);
         setOpenModal(false);
         setUser(user);
       }
@@ -86,7 +83,6 @@ const Index = () => {
                 title="Modifier"
                 type="submit"
                 handleClick={() => {
-                  console.log("test")
                 }}
                 btnClass="primary"
               />

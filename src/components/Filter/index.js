@@ -132,7 +132,6 @@ function Filter({ selectedFilter, setSelectedFilter }) {
                             className={styles.links__box}
                             onClick={() => {
                                 setSelectedFilter(item.label);
-                                console.log(item.label);
                             }}
                         >
                             <img src={item.imgSrc} className={styles.links__img} />

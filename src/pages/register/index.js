@@ -27,7 +27,6 @@ const Index = () => {
     e.preventDefault();
     AuthService.register(userForm)
       .then((data) => {
-        //console.log(data);
         router.push("/login");
       })
       .catch(
@@ -57,7 +56,6 @@ const Index = () => {
           <Input
             divClass="py-2"
             inputClass="shadow-[0_0px_1px_1px_rgba(0,0,0,0.3)]"
-            titleLabel="lastname"
             inputType="text"
             inputPlaceholder="lastname"
             inputName="lastName"
@@ -69,7 +67,6 @@ const Index = () => {
           <Input
             divClass="py-2"
             inputClass="shadow-[0_0px_1px_1px_rgba(0,0,0,0.3)]"
-            titleLabel="email"
             inputType="email"
             inputPlaceholder="email"
             inputName="email"
@@ -81,7 +78,6 @@ const Index = () => {
           <Input
             divClass="py-2"
             inputClass="shadow-[0_0px_1px_1px_rgba(0,0,0,0.3)]"
-            titleLabel="password"
             inputType="password"
             inputPlaceholder="password"
             inputName="password"
