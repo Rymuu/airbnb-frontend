@@ -13,6 +13,8 @@ const BookingsPage = () => {
     const [placesMap, setPlacesMap] = useState(new Map());
     const [openAcceptModal, setOpenAcceptModal] = useState(false);
     const [openRefuseModal, setOpenRefuseModal] = useState(false);
+    const [selectedBookingId, setSelectedBookingId] = useState(null);
+
 
 
     useEffect(() => {
@@ -35,12 +37,13 @@ const BookingsPage = () => {
     }, []);
     const acceptBooking = (bookingId) => {
         const token = localStorage.getItem('token');
+        console.log(bookingId);
         bookingService.acceptReservation(token, bookingId)
             .then((data) => {
                 setOpenAcceptModal(false);
                 // Update the booking status in the state array
                 setBookingsArray(prevBookings => prevBookings.map(booking => {
-                    if (booking._id === bookingId) {
+                    if (booking._id === selectedBookingId) {
                         return {
                             ...booking,
                             status: "ACCEPTED"
@@ -48,6 +51,7 @@ const BookingsPage = () => {
                     }
                     return booking;
                 }));
+                setSelectedBookingId(null);
             })
             .catch(err => console.log(err))
     }
@@ -59,7 +63,7 @@ const BookingsPage = () => {
                 setOpenRefuseModal(false);
                 // Update the booking status in the state array
                 setBookingsArray(prevBookings => prevBookings.map(booking => {
-                    if (booking._id === bookingId) {
+                    if (booking._id === selectedBookingId) {
                         return {
                             ...booking,
                             status: "REFUSED"
@@ -67,6 +71,7 @@ const BookingsPage = () => {
                     }
                     return booking;
                 }));
+                setSelectedBookingId(null);
             })
             .catch(err => console.log(err))
     }
@@ -108,8 +113,17 @@ const BookingsPage = () => {
 
                                     }
                                     {booking.status === "WAITING" ? (
-                                        <p className='flex justify-around'><RxCross2 className='text-red-600 text-xl' onClick={() => setOpenRefuseModal(true)} /><AiOutlineCheck className='text-green-600 text-xl' onClick={() => setOpenAcceptModal(true)} /></p>
-                                    ) : (null)}
+                                        <p className='flex justify-around'>
+                                            <RxCross2 className='text-red-600 text-xl' onClick={() => {
+                                                setSelectedBookingId(booking._id);
+                                                setOpenRefuseModal(true);
+                                            }} />
+                                            <AiOutlineCheck className='text-green-600 text-xl' onClick={() => {
+                                                setSelectedBookingId(booking._id);
+                                                setOpenAcceptModal(true);
+                                            }} />
+                                        </p>
+                                    ) : null}
 
                                 </LongCardInfo>
                             </>

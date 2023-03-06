@@ -51,7 +51,7 @@ const PlacesPage = () => {
                         btnClass="primary max-w-fit inline-flex gap-1 items-center"
                     />
                 </div>
-                {placesArray.length > 1 ?
+                {placesArray.length > 0 ?
                     (<div className='flex flex-col'>
                         {
                             placesArray && placesArray.map((item) => (

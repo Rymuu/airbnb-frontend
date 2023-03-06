@@ -27,7 +27,10 @@ export default function Home() {
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
       />
-      {selectedFilter == 0 ? <PlaceGrid places={placesArray}/> : <PlaceGrid places={placesArray} />}
+      {placesArray.length > 0 ? (
+        <PlaceGrid places={placesArray} />
+      ):
+      (<p className="text-center">Il n'y a pas de résultat pour vos filtres.</p>)}
 
     </main>
   )

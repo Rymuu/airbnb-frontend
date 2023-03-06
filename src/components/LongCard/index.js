@@ -308,7 +308,7 @@ const Index = ({ place, cardOnClick, useModal, modifyButton, handleUpdatePlace, 
                     </div>
                     <h4 className='text-xl font-medium c'>{place.title}</h4>
                     <div className='border-b w-10 pt-2' />
-                    <p className='pt-2 text-sm text-gray-500 flex-grow'>{place.description}</p>
+                    <p className='pt-2 text-sm text-gray-500 flex-grow max-w-lg'>{place.description}</p>
                     <div className='flex justify-between items-center pt-5'>
                         <p className='text-xl flex items-center gap-x-1'>
                             <FaStar className='text-[#FF385C] h-7 w-7' />

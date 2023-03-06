@@ -4,10 +4,14 @@ import placeService from "../../../services/place.service";
 const Index = ({ searchResults }) => {
 
     return (
-        <main>
+        <main className="p-10">
             <p className="text-sm font-semibold">{searchResults.length} {searchResults.length>1?("logements"):("logement")}</p>
             <p className="text-xs text-gray-500">Classement des résultats ⓘ</p>
-            <PlaceGrid places={searchResults} />
+            {searchResults.length > 0 ? (
+                 <PlaceGrid places={searchResults} />
+            ):
+            (<p className="text-center">Il n'y a pas de résultat pour votre recherche.</p>)}
+           
         </main>
     )
 }

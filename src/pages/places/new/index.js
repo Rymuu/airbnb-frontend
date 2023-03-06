@@ -15,6 +15,8 @@ const Index = () => {
     const [message, setMessage] = useState(null);
     const [type, setType] = useState(null);
     const [typePlaceArray, setTypePlaceArray] = useState([]);
+    const [imageLinks, setImageLinks] = useState([]);
+
     const [placeForm, setPlaceForm] = useState({
         title: "",
         description: "",
@@ -24,7 +26,7 @@ const Index = () => {
         rating: 5,
         capacity: "",
         types: "",
-        images: "",
+        images: [],
         address: {
             city: "",
             street: "",
@@ -40,7 +42,6 @@ const Index = () => {
     const submitForm = (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-
         placeService.createPlace(token, placeForm)
             .then((data) => {
                 if (data.errors) {
@@ -54,6 +55,7 @@ const Index = () => {
             })
             .catch(
                 (err) => {
+
                     console.log(err);
                     setMessage(err);
                 })
@@ -82,26 +84,40 @@ const Index = () => {
                     inputOnChange={(e) => setPlaceForm({ ...placeForm, title: e.target.value })}
                     inputRequired="required"
                 />
-                <Input
-                    titleLabel="Description"
-                    description="Décrivez le logement et ses environs"
-                    divClass="py-2"
-                    inputType="text"
-                    inputPlaceholder="Appartement charmant au centre de Paris"
-                    inputName="description"
-                    inputRequired="required"
-                    inputOnChange={(e) => setPlaceForm({ ...placeForm, description: e.target.value })}
-                />
-                <Input
-                    titleLabel="Photos"
-                    description="5 photos minimum"
-                    divClass="py-2"
-                    inputType="text"
-                    inputPlaceholder="Appartement charmant au centre de Paris"
-                    inputName="images"
-                    inputRequired="required"
-                    inputOnChange={(e) => setPlaceForm({ ...placeForm, images: e.target.value })}
-                />
+                <label className='text-2xl mt-4 font-medium'>Description</label>
+                <p className='hidden md:block text-gray-500 text-sm'>Décrivez votre propriété</p>
+                <textarea
+                    id="description"
+                    name="Description"
+                    rows="5" cols="33"
+                    placeholder="Appartement charmant au centre de Paris près des transports.."
+                    onChange={(e) => setPlaceForm({ ...placeForm, description: e.target.value })}
+                    required="required"
+                    type="text">
+                </textarea>
+                <div>
+                    <label className='text-2xl mt-4 font-medium'>Photos</label>
+                    <p className='hidden md:block text-gray-500 text-sm'>5 photos minimum</p>
+                    <button type="button" onClick={() => setImageLinks([...imageLinks, ''])}>Ajouter une image</button>
+                    {imageLinks.map((link, index) => (
+                        <Input
+                            key={index}
+                            divClass="py-2"
+                            inputType="text"
+                            inputPlaceholder="Ajouter une image en utilisant un lien ...jpg"
+                            inputName="images"
+                            inputRequired="required"
+                            inputOnChange={(e) => {
+                                let links = [...imageLinks];
+                                console.log(links);
+                                links[index] = e.target.value;
+                                setImageLinks(links);
+                                setPlaceForm({ ...placeForm, images: links });
+                            }}
+                        />
+                    ))}
+                </div>
+
 
                 <div className="flex justify-between items-center gap-x-4">
                     <Input
@@ -113,6 +129,7 @@ const Index = () => {
                         inputPlaceholder="0"
                         inputName="pricing"
                         inputRequired="required"
+                        inputMin={1}
                         inputOnChange={(e) => setPlaceForm({ ...placeForm, pricing: { ...placeForm.pricing, perDay: e.target.value } })}
 
                     />
@@ -125,6 +142,7 @@ const Index = () => {
                         inputPlaceholder="0"
                         inputName="capacity"
                         inputRequired="required"
+                        inputMin={1}
                         inputOnChange={(e) => setPlaceForm({ ...placeForm, capacity: e.target.value })}
 
                     />

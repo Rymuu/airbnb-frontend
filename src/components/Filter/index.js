@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { links } from "../../../public/icons/icons-links";
-import FilterIcon from "../../../public/icons/filter-icon.svg";
+import {TbFilter} from "react-icons/tb";
 import Modal from "../Modal";
 import Button from "../Button";
 import Separator from "../Separator";
@@ -118,7 +118,7 @@ function Filter({ selectedFilter, setSelectedFilter }) {
                                 onClick={(e) => {
                                     submitFilter(e);
                                 }}
-                                btnClass="btn__primary"
+                                btnClass="primary"
                             />
                         </form>
                     </Modal>
@@ -146,7 +146,7 @@ function Filter({ selectedFilter, setSelectedFilter }) {
                 <div className={styles.filter__div__button} onClick={() => {
                     setOpenModal(true);
                 }}>
-                    <img src={FilterIcon.src} alt="filters" height={17} />
+                    <TbFilter/>
                     <a>Filtres</a>
                 </div>
             </div>

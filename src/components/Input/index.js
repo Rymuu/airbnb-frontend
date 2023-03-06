@@ -13,6 +13,7 @@ const Index = (props) => {
         value={props.inputValue}
         onChange={props.inputOnChange}
         required={props.inputRequired}
+        min={props.inputMin}
       />
     </div>
   );

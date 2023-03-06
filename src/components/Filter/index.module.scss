@@ -3,9 +3,11 @@
   justify-content: flex-start;
   align-items: center;
   position: sticky;
-  top: 117px;
+  top: 80px;
   background-color: white;
-  z-index: 2;
+  z-index: 10;
+  padding-left: 5%;
+  padding-right: 5%;
 
   &__icons {
 
